@@ -38,8 +38,10 @@ module Webdriver
       def initialize_for_browser(user_agent_string)
         case options[:browser]
         when :firefox
-          options[:profile] ||= Selenium::WebDriver::Firefox::Profile.new
-          options[:profile]['general.useragent.override'] = user_agent_string
+          # options[:profile] ||= Selenium::WebDriver::Firefox::Profile.new
+          # options[:profile]['general.useragent.override'] = user_agent_string
+          options[:options] ||= Selenium::WebDriver::Firefox::Options.new
+          options[:options].add_preference('general.useragent.override', user_agent_string)
         when :chrome
           options[:switches] ||= []
           options[:switches] << "--user-agent=#{user_agent_string}"
